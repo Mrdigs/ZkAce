@@ -9,7 +9,9 @@ org.zkace.Acebox = zk.$extends(zul.inp.Textbox, {
 	$define: {
 		theme: null,
 		mode: null,
-		showgutter: null
+		showgutter: null,
+		maxrows: null,
+		rowsSet: null
 	},
   
 	setValue: function(value, fromServer) {
@@ -19,21 +21,39 @@ org.zkace.Acebox = zk.$extends(zul.inp.Textbox, {
 		}
     },
 
+	setHeight: function(value) {
+		this.$supers('setHeight', arguments);
+		if (this._editor) {
+			this._editor.resize();
+		}
+	},
+
+	setWidth: function(value) {
+		this.$supers('setWidth', arguments);
+		if (this._editor) {
+			this._editor.resize();
+		}
+	},
+	
 	bind_: function() {
 		this.$supers('bind_', arguments);
-		var elem = this.$n(), widget = this, editor = ace.edit(widget.uuid), session, base;
+		var elem = this.$n(), widget = this, editor = ace.edit(this.uuid), session, base, lines, min, max;
+		lines = editor.getSession().getDocument().getLength();
 		base = zk.ajaxURI('/web/js/org/zkace/ace/',{au:true});
 		ace.config.set('basePath', base);
 		session = editor.getSession();
-		widget._editor = editor;
-		if (widget._theme) {
-			editor.setTheme('ace/theme/' + widget._theme);
+		this._editor = editor;
+		if (this._theme) {
+			editor.setTheme('ace/theme/' + this._theme);
 		}
-		if (widget._mode) {
-			session.setMode('ace/mode/' + widget._mode);
+		if (this._mode) {
+			session.setMode('ace/mode/' + this._mode);
 		}
-		editor.setReadOnly(widget._readonly);
-		editor.renderer.setShowGutter(widget._showgutter);
+		editor.setReadOnly(this._readonly);
+		editor.renderer.setShowGutter(this._showgutter);
+		min = this.getRowsSet() ? this.getRows() : Math.min(lines, 1);
+		max = this.getMaxrows() >= min ? this.getMaxrows() : min;
+		editor.setOptions({minLines: min, maxLines: max});
 		session.setUseWrapMode(true);
 		session.setWrapLimitRange();
 		editor.on('blur', function(e) {
@@ -43,9 +63,10 @@ org.zkace.Acebox = zk.$extends(zul.inp.Textbox, {
 	},
 
 	redraw: function(out) {
+		// out.push('<div', this.domAttrs_(), '>');
 		out.push('<div', this.domAttrs_(), '>');
 		if (this.getValue()) {
-			out.push(this.getValue());
+			out.push(this.getValue().replace(/</g, '&lt;'));
 		}
 		out.push('</div>');
 	}

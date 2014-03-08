@@ -16,29 +16,36 @@ public class Acebox extends Textbox {
 
 	private static final long serialVersionUID = 1L;
 
+	private boolean rowsSet = false;
+	
 	private boolean showgutter = false;
+
+	private int maxrows = -1;
 	
 	private String mode;
 	
 	private String theme;
-	
+
 	public Acebox() {
 		super();
-		this.setRows(5);
+		this.setMultiline(true);
 	}
 
 	@Override
 	protected void renderProperties(ContentRenderer renderer) throws IOException {
 		super.renderProperties(renderer);
-		render(renderer, "mode", this.getMode()); 
-		render(renderer, "theme", this.getTheme()); 
-		render(renderer, "showgutter", this.getShowgutter()); 
+		render(renderer, "mode", this.mode); 
+		render(renderer, "theme", this.theme); 
+		render(renderer, "showgutter", this.showgutter); 
+		render(renderer, "rowsSet", this.rowsSet); 
+		render(renderer, "maxrows", this.maxrows); 
 	}
-
+	
 	@Override
 	public void setRows(int rows) throws WrongValueException {
 		super.setRows(rows);
-		super.setHeight((rows * 15) + "px");
+		this.rowsSet = true;
+		this.smartUpdate("rowsSet", true, true);
 	}
 	
 	public void setMode(String mode) {
@@ -66,6 +73,15 @@ public class Acebox extends Textbox {
 	
 	public boolean getShowgutter() {
 		return showgutter;
+	}
+
+	public void setMaxrows(int maxrows) {
+		this.maxrows = maxrows;
+		this.smartUpdate("maxrows", maxrows, true);
+	}
+	
+	public int getMaxrows() {
+		return maxrows;
 	}
 
 }
