@@ -32,6 +32,7 @@ In Java:
 
 ```java
 Acebox acebox = new Acebox();
+acebox.setMode("html");
 acebox.setReadOnly(true);
 acebox.setValue("<i>Ace for ZK is cool!</i>");
 ```
