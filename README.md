@@ -4,8 +4,9 @@ ZkAce
 A ZK Component for embedding the excellent Ace code editor in your ZK 
 application.
 
-Ace features over 20 themes, and syntax highlighting for over 100 languages, 
-code folding, and a live syntax checker.
+Ace features over 20 themes, and syntax highlighting for over 100 languages 
+(including C, CSS, Groovy, HTML, Java, Javascript, JSON, Less, Perl, Python,
+Ruby, Scala, SQL, XML), code folding, and a live syntax checker.
 
 Installation
 ------------
@@ -40,32 +41,32 @@ Supported Properties
 Most properties inherited from Textbox should work, but the only properties 
 with specific support are:
 
-mode
+##### `mode` #####
 
 Sets the language. See the Ace documentation at http://ace.c9.io/ for possible
 values.
 
-### `theme` ###
+##### `theme` #####
 
 Sets the theme. See the Ace documentation at http://ace.c9.io/ for possible
 values.
 
-### `showgutter` ###
+##### `showgutter` #####
 
 Shows or hides the Acebox gutter. Can be `true` or `false`.
 
-### `readonly` ###
+##### `readonly` #####
 
-Sets the Acebox to readonly mode - the value canont be edited. Can be `true` or 
+Sets the Acebox to readonly mode - the value cannot be edited. Can be `true` or 
 `false` just like Textbox.
 
-### `rows` ###
+##### `rows` #####
 
 Behaves like rows on Textbox, except that if you do not specify a `rows` property 
 Textbox defaults to 1 row whereas Acebox defaults to number of lines in the 
 initial value.
 
-### `maxrows` ###
+##### `maxrows` #####
 
 If you do not specify `maxrows`, or if `maxrows` is less than `rows`, then the Acebox
 will not grow beyond `rows` in height, otherwise it will grow until `maxrows` lines
