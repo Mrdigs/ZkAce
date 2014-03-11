@@ -66,7 +66,7 @@ org.zkace.Acebox = zk.$extends(zul.inp.Textbox, {
 		// out.push('<div', this.domAttrs_(), '>');
 		out.push('<div', this.domAttrs_(), '>');
 		if (this.getValue()) {
-			out.push(this.getValue().replace(/</g, '&lt;'));
+			out.push(this.getValue().replace(/&/g, '&amp').replace(/</g, '&lt;'));
 		}
 		out.push('</div>');
 	}
