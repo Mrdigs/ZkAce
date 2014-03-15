@@ -56,7 +56,7 @@ values.
 
 Shows or hides the Acebox gutter. Can be `true` or `false`.
 
-##### `constraint` #####
+##### `constraint` ##### (new for v1.0.1)
 
 All the usual constraint types available to a Textbox can be used, with the
 addition of 2 new ones. If `grammar(strict)` is specified, the value will be
