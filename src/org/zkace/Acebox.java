@@ -7,6 +7,8 @@
 package org.zkace;
 
 import java.io.IOException;
+import java.util.List;
+import java.util.Map;
 
 import org.zkoss.zk.ui.WrongValueException;
 import org.zkoss.zk.ui.sys.ContentRenderer;
@@ -16,6 +18,8 @@ public class Acebox extends Textbox {
 
 	private static final long serialVersionUID = 1L;
 
+	protected List<Map<String, Object>> annotations;
+	
 	private boolean rowsSet = false;
 	
 	private boolean showgutter = false;
@@ -40,7 +44,24 @@ public class Acebox extends Textbox {
 		render(renderer, "rowsSet", this.rowsSet); 
 		render(renderer, "maxrows", this.maxrows); 
 	}
+
+	@Override
+	public void setConstraint(String constr) {
+		if (constr != null) {
+			super.setConstraint(new GrammarConstraint(constr));
+		}
+	}
 	
+	@SuppressWarnings("unchecked")
+	@Override
+	protected void updateByClient(String name, Object value) {
+		if ("annotations".equals(name)) {
+			this.annotations = (List<Map<String, Object>>) value;
+		} else {
+			super.updateByClient(name, value);
+		}
+	}
+		
 	@Override
 	public void setRows(int rows) throws WrongValueException {
 		super.setRows(rows);

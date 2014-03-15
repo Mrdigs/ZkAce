@@ -56,6 +56,13 @@ values.
 
 Shows or hides the Acebox gutter. Can be `true` or `false`.
 
+##### `constraint` #####
+
+All the usual constraint types available to a Textbox can be used, with the
+addition of 2 new ones. If `grammar(strict)` is specified, the value will be
+rejected if any grammar violation warning or errors are present. If `grammar(lenient)`
+is specified, then only errors will cause the value to be rejected.
+
 ##### `readonly` #####
 
 Sets the Acebox to readonly mode - the value cannot be edited. Can be `true` or 

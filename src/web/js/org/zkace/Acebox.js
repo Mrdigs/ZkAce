@@ -54,11 +54,17 @@ org.zkace.Acebox = zk.$extends(zul.inp.Textbox, {
 		min = this.getRowsSet() ? this.getRows() : Math.min(lines, 1);
 		max = this.getMaxrows() >= min ? this.getMaxrows() : min;
 		editor.setOptions({minLines: min, maxLines: max});
+		// TODO Make this a component property
+		// editor.setBehavioursEnabled(true);
 		session.setUseWrapMode(true);
 		session.setWrapLimitRange();
 		editor.on('blur', function(e) {
 			widget.setValue(editor.getValue());
 			widget.fireOnChange();
+		});
+		session.on("changeAnnotation", function(){
+			var annot = session.getAnnotations();
+			widget.smartUpdate('annotations', annot);
 		});
 	},
 
